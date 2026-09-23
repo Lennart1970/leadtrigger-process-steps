@@ -3,31 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leadtrigger — Offering Company Finder process steps</title>
-<meta name="description" content="Leadtrigger Offering Company Finder process steps — chatbot / RAG training corpus with demo media.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,650;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
-
+<title>Leadtrigger — Offering Company Finder process steps (chatbot training)</title>
+<meta name="description" content="Leadtrigger Offering Company Finder process steps — flat chatbot / RAG training corpus.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="wrap">
-<header class="site">
-
-<p class="eyebrow">Leadtrigger · leadtrigger-news · chatbot / RAG training</p>
-<h1>Leadtrigger — Offering Company Finder process steps</h1>
-<p>Chatbot / RAG training corpus. Flat pages with real links — canonical routes, decision rules, and demo media.</p>
-</header>
-<nav class="site-nav" aria-label="Process steps">
-  <a href="index.html">Hub</a>
-  <a href="01-refresh-stale-share-article.html">01 Refresh</a>
-  <a href="02-full-company-universe.html">02 Full universe</a>
-  <a href="03-prepare-one-company.html">03 Prepare one</a>
-  <a href="appendix.html">Appendix §10–12</a>
-</nav>
-
-<article class="prose">
+<main>
 <h1 id="leadtrigger-offering-company-finder-process-steps-chatbot-training">Leadtrigger — Offering Company Finder process steps (chatbot training)</h1>
 <blockquote>
 <p><strong>Audience:</strong> chatbot / Grok Bot training corpus. Dense. Routes, rules, media.
@@ -36,18 +17,891 @@
 <strong>Source packs:</strong> local <code>/workspace/lt-manual/process-steps/</code> · Drive <code>lt_manual/process-steps/</code>
 <strong>Verified:</strong> 2026-09-23 with <code>@lt_news_code</code> / demos · handbook §10–12</p>
 </blockquote>
-<h2>Process steps (crawlable pages)</h2>
-<ul class="hub-links">
-<li><a class="primary" href="01-refresh-stale-share-article.html">01 — Refresh stale share article</a><span class="blurb">Companies with articles → open share article → Deep research (stale briefs).</span><a class="manual" href="media/01-refresh-stale-share-article/MANUAL.html">Step MANUAL</a></li>
-<li><a class="primary" href="02-full-company-universe.html">02 — Full company universe</a><span class="blurb">Browse the entire company universe — with and without articles.</span><a class="manual" href="media/02-full-company-universe/MANUAL.html">Step MANUAL</a></li>
-<li><a class="primary" href="03-prepare-one-company.html">03 — Prepare one company</a><span class="blurb">Ad-hoc: one company name + domain → research, contacts, article.</span><a class="manual" href="media/03-prepare-one-company/MANUAL.html">Step MANUAL</a></li>
-<li><a class="primary" href="appendix.html">Appendix — Handbook UI sequences §10–12</a><span class="blurb">Handbook §10–12 mirrored for training (routes, rules, sequences).</span><a class="manual" href="appendix-handbook-ui-sequences.md">Source markdown</a></li>
+<h2 id="how-to-use-this-page">How to use this page</h2>
+<ul>
+<li>Prefer <strong>canonical routes</strong> and <strong>decision rules</strong> over screenshots.</li>
+<li>Videos show the UI path; <strong>Chrome history URLs beat OCR</strong>.</li>
+<li>Inputs in <code>{braces}</code> are parameters; demo values are examples only.</li>
 </ul>
+<h2 id="hub-card-map-start-from-companies">Hub card map (Start from companies)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Title</th>
+<th>Route</th>
+<th>Article presence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Companies with articles</td>
+<td><code>/companies?article=with</code></td>
+<td>With only</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Full company universe</td>
+<td><code>/companies</code></td>
+<td><strong>With + without</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Companies without articles</td>
+<td><code>/companies?article=without</code></td>
+<td>Without only</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Prepare one company</td>
+<td><code>/companies/prepare</code></td>
+<td>N/A (ad-hoc create/queue)</td>
+</tr>
+</tbody>
+</table>
+<p>Code: <code>client/src/lib/offeringCompanyFinderWays.ts</code> · <code>companyBrowsePath()</code> in <code>client/src/lib/companyApproachRoutes.ts</code>.</p>
+<h2 id="table-of-contents">Table of contents</h2>
+<ol>
+<li><a href="#01--refresh-stale-share-article">01 — Refresh stale share article</a></li>
+<li><a href="#02--full-company-universe">02 — Full company universe</a></li>
+<li><a href="#03--prepare-one-company">03 — Prepare one company</a></li>
+<li><a href="#appendix">Appendix — Handbook UI sequences §10–12</a></li>
+</ol>
+<hr />
+<h2 id="01-refresh-stale-share-article">01 — Refresh stale share article</h2>
+<p><strong>Goal:</strong> From Offering Company Finder → companies <strong>with</strong> articles → open share article → run <strong>Deep research</strong> (many briefs are stale).</p>
+<h3 id="canonical-paths">Canonical paths</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Route / control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub</td>
+<td><code>/companies/start</code></td>
+</tr>
+<tr>
+<td>With articles</td>
+<td><code>/companies?article=with</code></td>
+</tr>
+<tr>
+<td>Share</td>
+<td><code>/share/article/{articleKey}</code> via <strong>Open on new page</strong></td>
+</tr>
+<tr>
+<td>Enrich</td>
+<td>Toolbar <strong>Deep research</strong> (<code>stage: deep_research</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-rules">Decision rules</h3>
+<ul>
+<li>If content / scores look old or wrong-sector → Deep research before outreach/copy.</li>
+<li>Watchlist filter = <code>campaignBrain.listBrainCampaigns</code> → <code>campaignId</code>.</li>
+<li><strong>CG class</strong> UI = <code>cgLeadClass</code> (demo: All).</li>
+<li>Trust history URL <code>/companies?article=with</code> — never <code>/companies/article-with</code>.</li>
+</ul>
+<h3 id="inputs-vs-constants-demo">Inputs vs constants (demo)</h3>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Name</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INPUT</td>
+<td><code>{watchlist}</code></td>
+<td>S8</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td><code>{company}</code></td>
+<td>Aceros Moldeados de Lacunza SA</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td><code>{articleKey}</code></td>
+<td><code>08421b9c8af111dc214cffcdd564b8f6</code></td>
+</tr>
+<tr>
+<td>SESSION</td>
+<td>venture</td>
+<td>Connect Group EMS Intelligence</td>
+</tr>
+<tr>
+<td>CONST</td>
+<td>base</td>
+<td><code>https://leadtrigger-news-production.up.railway.app</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="bot-sequence">Bot sequence</h3>
+<ol>
+<li>Open <code>/companies/start</code>.</li>
+<li>Click <strong>1 Companies with articles</strong> → <code>/companies?article=with</code>.</li>
+<li>Set <strong>Watchlist</strong> = <code>{watchlist}</code>.</li>
+<li>Optional: <strong>CG class</strong> = All.</li>
+<li><strong>Save filtered (up to 500)</strong>.</li>
+<li>On <code>{company}</code>, <strong>Open on new page</strong> → <code>/share/article/{articleKey}</code>.</li>
+<li>Click <strong>Deep research</strong>; wait until idle / toast complete.</li>
+<li>Report: company, <code>articleKey</code>, research status.</li>
+</ol>
+<h3 id="anti-patterns">Anti-patterns</h3>
+<ul>
+<li>Skip Deep research on stale briefs.</li>
+<li>Invent <code>articleKey</code>.</li>
+<li>Run Find contacts / Outreach unless asked.</li>
+<li>Treat video OCR paths as canonical when history disagrees.</li>
+</ul>
+<h3 id="media">Media</h3>
+<p><img alt="Still ~20%" src="media/01-refresh-stale-share-article/frame_20pct.png" /></p>
+<p><img alt="Still ~70% / share article" src="media/01-refresh-stale-share-article/frame_70pct.png" /></p>
+<video controls src="media/01-refresh-stale-share-article/demo.mp4"></video>
+
+<p>Full step MANUAL: <a href="media/01-refresh-stale-share-article/MANUAL.md">media/01-refresh-stale-share-article/MANUAL.md</a></p>
+<hr />
+<h2 id="02-full-company-universe">02 — Full company universe</h2>
+<p><strong>Goal:</strong> Browse the <strong>entire</strong> company universe — includes accounts <strong>with and without</strong> articles.</p>
+<h3 id="canonical-paths_1">Canonical paths</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Route / control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub</td>
+<td><code>/companies/start</code> → <strong>2 Full company universe</strong></td>
+</tr>
+<tr>
+<td>Full universe</td>
+<td><code>/companies</code> (no <code>article</code> query) · hub id <code>browse-all</code> · <code>companyBrowsePath()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-rules_1">Decision rules</h3>
+<ul>
+<li>Full universe ≠ with-articles. Card 1 excludes no-brief accounts. Card 2 returns <strong>both</strong>.</li>
+<li>Card 3 (<code>article=without</code>) is missing-briefs only.</li>
+<li>If <code>article</code> query is absent → with + without.</li>
+<li>Do not navigate to <code>?article=with</code> and call that Full universe.</li>
+</ul>
+<h3 id="bot-sequence_1">Bot sequence</h3>
+<ol>
+<li>Open <code>/companies/start</code>.</li>
+<li>Click <strong>2 Full company universe</strong> → <code>/companies</code> (no <code>article=</code>).</li>
+<li>Optional filters (watchlist, region, CG class) — keep <code>article</code> unset for true full universe.</li>
+<li>Optional <strong>Save filtered (up to 500)</strong>.</li>
+<li>Rows may lack share / Deep research when there is no article — expected.</li>
+<li>Report filter state + sample companies.</li>
+</ol>
+<h3 id="anti-patterns_1">Anti-patterns</h3>
+<ul>
+<li>Using <code>article=with</code> and calling it Full universe.</li>
+<li>Expecting every row to have an <code>articleKey</code>.</li>
+</ul>
+<h3 id="media_1">Media</h3>
+<p><img alt="Still ~20%" src="media/02-full-company-universe/frame_20pct.png" /></p>
+<p><img alt="Still ~70%" src="media/02-full-company-universe/frame_70pct.png" /></p>
+<video controls src="media/02-full-company-universe/demo.mp4"></video>
+
+<p>Full step MANUAL: <a href="media/02-full-company-universe/MANUAL.md">media/02-full-company-universe/MANUAL.md</a></p>
+<hr />
+<h2 id="03-prepare-one-company">03 — Prepare one company</h2>
+<p><strong>Goal:</strong> Ad-hoc — enter <strong>one</strong> company name + domain → start research, contacts, and article (~2–5 min).</p>
+<h3 id="canonical-paths_2">Canonical paths</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Route / control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub</td>
+<td><code>/companies/start</code> → <strong>4 Prepare one company</strong> · id <code>prepare-one</code></td>
+</tr>
+<tr>
+<td>Page</td>
+<td><code>/companies/prepare</code> · <code>PrepareOneCompanyPage</code></td>
+</tr>
+<tr>
+<td>CTA</td>
+<td><strong>Prepare outreach</strong></td>
+</tr>
+<tr>
+<td>API</td>
+<td><code>leadtrigger.prepareAdhocCompany</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-rules_2">Decision rules</h3>
+<ul>
+<li>Domain normalized: strip <code>https://</code>, <code>www.</code>, path/query; require <code>.</code>.</li>
+<li><code>status === "created"</code> → Apollo add; else already in DB.</li>
+<li>Queues Ad-hoc requests; research runs in background.</li>
+<li>Not a universe browse (§02).</li>
+</ul>
+<h3 id="inputs-vs-constants-demo_1">Inputs vs constants (demo)</h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Field</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INPUT</td>
+<td><code>{companyName}</code></td>
+<td>Embat</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td><code>{domain}</code></td>
+<td>embat.io</td>
+</tr>
+<tr>
+<td>SESSION</td>
+<td>venture</td>
+<td>Connect Group EMS Intelligence - General</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bot-sequence_2">Bot sequence</h3>
+<ol>
+<li>Active venture set.</li>
+<li>Open <code>/companies/prepare</code>.</li>
+<li><code>{companyName}</code> + <code>{domain}</code> → <strong>Prepare outreach</strong>.</li>
+<li>Read <strong>OUTREACH STARTED</strong> (created vs found in database).</li>
+<li>Optional: Open article <code>/share/article/{articleKey}</code>, Ad-hoc watchlist, View company <code>/company/{companyId}</code>, Find companies like this.</li>
+<li>Report: name, domain, status, ids.</li>
+</ol>
+<h3 id="anti-patterns_2">Anti-patterns</h3>
+<ul>
+<li>Submit without domain.</li>
+<li>Invent <code>articleKey</code> before mutation returns.</li>
+<li>Confuse with hub cards 1–3 browse paths.</li>
+</ul>
+<h3 id="media_2">Media</h3>
+<p><img alt="Still ~20%" src="media/03-prepare-one-company/frame_20pct.png" /></p>
+<p><img alt="Still ~70%" src="media/03-prepare-one-company/frame_70pct.png" /></p>
+<video controls src="media/03-prepare-one-company/demo.mp4"></video>
+
+<p>Full step MANUAL: <a href="media/03-prepare-one-company/MANUAL.md">media/03-prepare-one-company/MANUAL.md</a></p>
+<hr />
+<h2 id="appendix">Appendix</h2>
+<p>Handbook UI sequences (§10–12) mirrored for training: <a href="appendix-handbook-ui-sequences.md">appendix-handbook-ui-sequences.md</a></p>
 <p>Repo SoT pointers: <code>OfferingCompanyFinderPage.tsx</code>, <code>offeringCompanyFinderWays.ts</code>, <code>companyApproachRoutes.ts</code>, <code>CompanyDatabaseView.tsx</code>, <code>PrepareOneCompanyPage.tsx</code>, <code>ArticleEnrichmentToolbar.tsx</code>.</p>
-</article>
-<footer class="site">
-  <p>Static training site · <a href="https://lennart1970.github.io/leadtrigger-process-steps/">lennart1970.github.io/leadtrigger-process-steps</a> · GitHub Pages (<code>docs/</code>)</p>
-</footer>
-</div>
+<hr />
+<h2 id="10-ui-sequence-refresh-stale-share-article-company-finder">10. UI sequence — refresh stale share article (Company finder)</h2>
+<blockquote>
+<p><strong>Verified 2026-09-23</strong> with <code>@lt_news_code</code> — <code>/companies/start</code> on <code>main</code> @ <code>7a7bdb440d</code> (PR #116). Demo same day.
+Why: many share articles are <strong>stale</strong> — run <strong>Deep research</strong> after opening.</p>
+</blockquote>
+<h3 id="goal">Goal</h3>
+<p>From Offering Company Finder → companies that already have articles → open share article → <strong>Deep research</strong>.</p>
+<h3 id="canonical-paths_3">Canonical paths</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Route / control</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub</td>
+<td><code>/companies/start</code></td>
+<td>Offering Company Finder · <code>OfferingCompanyFinderPage</code> · <code>OFFERING_COMPANY_FINDER_PATH</code> · <code>App.tsx:82</code> · PR #116</td>
+</tr>
+<tr>
+<td>With articles</td>
+<td><code>/companies?article=with</code></td>
+<td>Hub card <strong>1</strong> · <code>article=with</code> only</td>
+</tr>
+<tr>
+<td>Full universe</td>
+<td><code>/companies</code></td>
+<td>Hub card <strong>2</strong> · <strong>no</strong> <code>article</code> param → with <strong>and without</strong> articles</td>
+</tr>
+<tr>
+<td>Without articles</td>
+<td><code>/companies?article=without</code></td>
+<td>Hub card <strong>3</strong> · <code>article=without</code> only</td>
+</tr>
+<tr>
+<td>Share</td>
+<td><code>/share/article/{articleKey}</code></td>
+<td><code>publicShareArticleUrl(articleKey)</code> · <code>Open on new page</code></td>
+</tr>
+<tr>
+<td>Deep research</td>
+<td>toolbar stage <code>deep_research</code></td>
+<td>Label <strong>Deep research</strong> · <code>ArticleEnrichmentToolbar</code> / <code>campaignBrain.enrichCampaignMember</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-rules_3">Decision rules</h3>
+<ul>
+<li>If article content / scores look old or wrong-sector → <strong>Deep research</strong> before outreach/copy.</li>
+<li>Watchlist filter = <code>campaignBrain.listBrainCampaigns</code> → <code>watchlistId</code> = <code>campaignId</code> on <code>lt_mns_brain_campaigns</code>.</li>
+<li><strong>CG class</strong> UI label maps to <code>cgLeadClass</code> (demo left at All).</li>
+<li>Trust history URL <code>/companies?article=with</code> — never <code>/companies/article-with</code>.</li>
+</ul>
+<h3 id="sequence-bot">Sequence (bot)</h3>
+<ol>
+<li>Open <code>/companies/start</code> (active venture already set).</li>
+<li>Click <strong>1 Companies with articles</strong> → <code>/companies?article=with</code>.</li>
+<li>Set <strong>Watchlist</strong> = <code>{watchlist}</code> (demo: <strong>S8</strong>).</li>
+<li>Optional: <strong>CG class</strong> = All (default).</li>
+<li>Click <strong>Save filtered (up to 500)</strong>.</li>
+<li>On row <code>{company}</code>, click <strong>Open on new page</strong> → <code>/share/article/{articleKey}</code>.</li>
+<li>Click <strong>Deep research</strong>; wait until toolbar idle / toast complete.</li>
+<li>Report: company, <code>articleKey</code>, research status.</li>
+</ol>
+<h3 id="inputs-vs-constants">Inputs vs constants</h3>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Example from demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{watchlist}</code></td>
+<td>S8</td>
+</tr>
+<tr>
+<td><code>{company}</code></td>
+<td>Aceros Moldeados de Lacunza SA</td>
+</tr>
+<tr>
+<td><code>{articleKey}</code></td>
+<td><code>08421b9c8af111dc214cffcdd564b8f6</code></td>
+</tr>
+<tr>
+<td>venture</td>
+<td>Connect Group EMS Intelligence (session)</td>
+</tr>
+<tr>
+<td>base URL</td>
+<td><code>https://leadtrigger-news-production.up.railway.app</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="anti-patterns_3">Anti-patterns</h3>
+<ul>
+<li>Skipping Deep research on stale briefs.</li>
+<li>Treating video-OCR URL <code>/companies/article-with</code> as real.</li>
+<li>Opening share without <code>articleKey</code> / inventing keys.</li>
+<li>Running Find contacts / Outreach unless asked.</li>
+</ul>
+<h3 id="sot-pointers">SoT pointers</h3>
+<ul>
+<li>Browse + open: <code>client/src/pages/CompanyDatabaseView.tsx</code> (<code>Save filtered (up to 500)</code>, <code>Open on new page</code>, <code>articleFilter</code>, <code>watchlistId</code>, <code>cgLeadClass</code>).</li>
+<li>Share route: <code>client/src/App.tsx</code> <code>/share/article/:articleKey</code> · <code>BrainCampaignArticlePage</code>.</li>
+<li>Enrichment: <code>client/src/components/article/ArticleEnrichmentToolbar.tsx</code> (<code>deep_research</code>).</li>
+<li>Copilot mirror of article filter: <code>server/services/copilotCompanies.ts</code> (<code>article=with|without</code>).</li>
+<li>Hub: <code>client/src/pages/OfferingCompanyFinderPage.tsx</code> · <code>client/src/lib/offeringCompanyFinderWays.ts</code> (<code>OFFERING_COMPANY_FINDER_PATH="/companies/start"</code>; card 1 → <code>article=with</code>; card 2 → <code>/companies</code>; card 3 → <code>article=without</code>) · <code>companyBrowsePath</code> in <code>client/src/lib/companyApproachRoutes.ts</code> · route <code>client/src/App.tsx:82</code>.</li>
+</ul>
+<hr />
+<h2 id="11-ui-sequence-full-company-universe">11. UI sequence — Full company universe</h2>
+<blockquote>
+<p><strong>Verified 2026-09-23</strong> — hub card id <code>browse-all</code> in <code>offeringCompanyFinderWays.ts</code> → <code>companyBrowsePath()</code> → <code>/companies</code> (no <code>article</code> query). Demo same day (teach session <code>teach-20260923T142501Z-…</code>).
+Process pack: <code>/workspace/lt-manual/process-steps/02-full-company-universe/</code> · Drive under <code>lt_manual/process-steps/</code>.</p>
+</blockquote>
+<h3 id="goal_1">Goal</h3>
+<p>Browse the <strong>entire</strong> company universe for the active venture — includes accounts <strong>with articles and without articles</strong>.</p>
+<h3 id="canonical-paths_4">Canonical paths</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Route / control</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub</td>
+<td><code>/companies/start</code></td>
+<td>Offering Company Finder</td>
+</tr>
+<tr>
+<td>Full universe</td>
+<td><code>/companies</code></td>
+<td>Hub <strong>2 Full company universe</strong> · <code>id: browse-all</code> · <code>companyBrowsePath()</code> with empty params</td>
+</tr>
+<tr>
+<td>Optional narrow</td>
+<td><code>?article=with\|without</code></td>
+<td>UI can still set article filter <strong>after</strong> entry; default Full universe has <strong>none</strong></td>
+</tr>
+<tr>
+<td>Optional region</td>
+<td><code>?region=…</code></td>
+<td>e.g. demo later used <code>region=Europe</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-rules_4">Decision rules</h3>
+<ul>
+<li><strong>Full universe ≠ with-articles.</strong> Card 1 (<code>article=with</code>) excludes no-brief accounts. Card 2 (<code>/companies</code>) returns <strong>both</strong>.</li>
+<li>Card 3 (<code>article=without</code>) is the inverse slice (missing briefs only).</li>
+<li>If a bot needs “everyone including no article” → open <strong>Full company universe</strong> / <code>/companies</code>, <strong>do not</strong> use <code>article=with</code>.</li>
+<li>If <code>article</code> query is absent → treat as unfiltered article presence (with + without).</li>
+<li>Watchlist / CG class / Save filtered behave the same as §10 once on browse.</li>
+</ul>
+<h3 id="sequence-bot_1">Sequence (bot)</h3>
+<ol>
+<li>Open <code>/companies/start</code>.</li>
+<li>Click <strong>2 Full company universe</strong> → <code>/companies</code> (no <code>article=</code>).</li>
+<li>Optional filters (watchlist, region, CG class) — keep <code>article</code> unset unless the task requires a slice.</li>
+<li><strong>Save filtered (up to 500)</strong> if persisting the set.</li>
+<li>Rows may lack <strong>Open on new page</strong> / share when there is <strong>no</strong> article — expected for without-article accounts.</li>
+<li>Report: filter state (<code>article</code> absent vs <code>with</code>/<code>without</code>), counts if available, sample companies.</li>
+</ol>
+<h3 id="anti-patterns_4">Anti-patterns</h3>
+<ul>
+<li>Calling Full universe then navigating to <code>?article=with</code> and treating that as the full universe result.</li>
+<li>Assuming every Full-universe row has a share article / Deep research path.</li>
+<li>Confusing card 2 with card 3 (<code>without</code> only).</li>
+</ul>
+<h3 id="sot-pointers_1">SoT pointers</h3>
+<ul>
+<li>Hub ways: <code>client/src/lib/offeringCompanyFinderWays.ts</code> — <code>browse-all</code> → <code>companyBrowsePath()</code>.</li>
+<li>Browse path builder: <code>client/src/lib/companyApproachRoutes.ts</code> — <code>article</code> only set when <code>"with"</code> | <code>"without"</code>.</li>
+<li>Browse UI: <code>client/src/pages/CompanyDatabaseView.tsx</code> (<code>articleFilter</code>).</li>
+<li>Copilot mirror: <code>server/services/copilotCompanies.ts</code>.</li>
+</ul>
+<hr />
+<h2 id="12-ui-sequence-prepare-one-company">12. UI sequence — Prepare one company</h2>
+<blockquote>
+<p><strong>Verified 2026-09-23</strong> — <code>PrepareOneCompanyPage</code> · route <code>/companies/prepare</code> · hub id <code>prepare-one</code> · mutation <code>leadtrigger.prepareAdhocCompany</code>. Demo: Embat / <code>embat.io</code>.
+Process pack: <code>/workspace/lt-manual/process-steps/03-prepare-one-company/</code>.</p>
+</blockquote>
+<h3 id="goal_2">Goal</h3>
+<p>Ad-hoc: enter <strong>one</strong> company name + domain → start research, contacts, and article (~2–5 min).</p>
+<h3 id="canonical-paths_5">Canonical paths</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Route / control</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub</td>
+<td><code>/companies/start</code> → <strong>4 Prepare one company</strong></td>
+<td><code>id: prepare-one</code> · href <code>/companies/prepare</code></td>
+</tr>
+<tr>
+<td>Page</td>
+<td><code>/companies/prepare</code></td>
+<td><code>PrepareOneCompanyPage</code> · <code>App.tsx</code></td>
+</tr>
+<tr>
+<td>CTA</td>
+<td><strong>Prepare outreach</strong></td>
+<td>disabled until name + valid domain</td>
+</tr>
+<tr>
+<td>Result</td>
+<td>OUTREACH STARTED panel</td>
+<td>Open article / Ad-hoc watchlist / View company / Find like this</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decision-rules_5">Decision rules</h3>
+<ul>
+<li>Domain normalized: strip <code>https://</code>, <code>www.</code>, path/query; require <code>.</code>.</li>
+<li><code>status === "created"</code> → Apollo add; else already in DB.</li>
+<li>Queues into Ad-hoc requests / watchlist; research runs in background.</li>
+<li>Not a universe browse — use §11 for full list.</li>
+</ul>
+<h3 id="sequence-bot_2">Sequence (bot)</h3>
+<ol>
+<li>Active venture set.</li>
+<li>Open <code>/companies/prepare</code>.</li>
+<li><code>{companyName}</code> + <code>{domain}</code> → <strong>Prepare outreach</strong>.</li>
+<li>Capture result ids (<code>articleKey</code>, <code>campaignId</code>, <code>companyId</code>, <code>status</code>).</li>
+<li>Report + optional Open article.</li>
+</ol>
+<h3 id="inputs-vs-constants_1">Inputs vs constants</h3>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{companyName}</code></td>
+<td>Embat</td>
+</tr>
+<tr>
+<td><code>{domain}</code></td>
+<td>embat.io</td>
+</tr>
+</tbody>
+</table>
+<h3 id="anti-patterns_5">Anti-patterns</h3>
+<ul>
+<li>Empty domain; inventing articleKey before mutation returns.</li>
+<li>Confusing with card 1–3 browse paths.</li>
+</ul>
+<h3 id="sot-pointers_2">SoT pointers</h3>
+<ul>
+<li><code>client/src/pages/PrepareOneCompanyPage.tsx</code></li>
+<li>Hub: <code>client/src/lib/offeringCompanyFinderWays.ts</code> (<code>prepare-one</code>)</li>
+<li>Admin queues: <code>/admin/prepare-requests</code> · <code>AdhocPrepareRequestsPage</code></li>
+</ul>
+<hr />
+<!-- source: media/01-refresh-stale-share-article/MANUAL.md -->
+
+<h1 id="process-step-01-refresh-stale-share-article-company-finder-deep-research">Process step 01 — Refresh stale share article (Company finder → Deep research)</h1>
+<blockquote>
+<p><strong>Audience:</strong> Grok Bots (<code>lt_*</code>). Spec-like. Not a human tutorial.
+<strong>Demo:</strong> 2026-09-23 16:14–16:16 Europe/Amsterdam · teach session <code>teach-20260923T141440Z-3d20767a-6a76-491a-a590-ab88758060d2</code>
+<strong>Env:</strong> <code>https://leadtrigger-news-production.up.railway.app</code> · venture Connect Group EMS Intelligence
+<strong>Related skill:</strong> <a href="sand-workflow:refresh-share-article-via-deep-research">Refresh share article via Deep research</a>
+<strong>Parent handbook:</strong> <code>LEADTRIGGER_BOT_MANUAL.md</code> §10 (summary only). This folder is the <strong>source of truth</strong> for the step.</p>
+</blockquote>
+<h2 id="why">Why</h2>
+<p>Many <code>/share/article/{articleKey}</code> briefs are <strong>stale</strong>. After opening from Company finder, run <strong>Deep research</strong> before trusting fit/urgency/copy.</p>
+<h2 id="assets">Assets</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>demo.mp4</code></td>
+<td>Full screen recording — restored 2026-09-23 from teach-20260923T135442Z (~55s; ends on share article Deep research).</td>
+</tr>
+<tr>
+<td><code>assets/frame_20pct.png</code></td>
+<td>Still ~18s into demo (hub → loading)</td>
+</tr>
+<tr>
+<td><code>assets/frame_70pct.png</code></td>
+<td>Still ~63s (share article / PEOPLE)</td>
+</tr>
+<tr>
+<td><code>assets/after_deep_research.webp</code></td>
+<td>Post–Deep research click on Aceros Moldeados</td>
+</tr>
+</tbody>
+</table>
+<h2 id="canonical-paths_6">Canonical paths</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Route / control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub</td>
+<td><code>/companies/start</code> — Offering Company Finder</td>
+</tr>
+<tr>
+<td>With articles</td>
+<td><code>/companies?article=with</code> — Browse companies</td>
+</tr>
+<tr>
+<td>Share</td>
+<td><code>/share/article/{articleKey}</code> — <code>Open on new page</code></td>
+</tr>
+<tr>
+<td>Enrich</td>
+<td>Toolbar <strong>Deep research</strong> (<code>stage: deep_research</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="inputs-vs-constants_2">Inputs vs constants</h2>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Name</th>
+<th>Demo value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INPUT</td>
+<td><code>{watchlist}</code></td>
+<td>S8</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td><code>{company}</code></td>
+<td>Aceros Moldeados de Lacunza SA</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td><code>{articleKey}</code></td>
+<td><code>08421b9c8af111dc214cffcdd564b8f6</code></td>
+</tr>
+<tr>
+<td>SESSION</td>
+<td>venture / brain</td>
+<td>Connect Group EMS Intelligence</td>
+</tr>
+<tr>
+<td>CONST</td>
+<td>base URL</td>
+<td><code>https://leadtrigger-news-production.up.railway.app</code></td>
+</tr>
+<tr>
+<td>CONST</td>
+<td>article filter</td>
+<td><code>article=with</code></td>
+</tr>
+<tr>
+<td>CONST</td>
+<td>CG class</td>
+<td>All (<code>cgLeadClass</code> empty)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sequence">Sequence</h2>
+<ol>
+<li>Open <code>{base}/companies/start</code>.</li>
+<li>Click <strong>1 Companies with articles</strong> → <code>{base}/companies?article=with</code>.</li>
+<li>Set <strong>Watchlist</strong> = <code>{watchlist}</code> (dropdown from <code>campaignBrain.listBrainCampaigns</code> → <code>campaignId</code>).</li>
+<li>Leave <strong>CG class</strong> at All unless specified.</li>
+<li>Click <strong>Save filtered (up to 500)</strong>.</li>
+<li>On <code>{company}</code> row, click <strong>Open on new page</strong> → new tab <code>{base}/share/article/{articleKey}</code>.</li>
+<li>Click <strong>Deep research</strong>. Wait until toolbar idle / toast complete.</li>
+<li>Report: company, <code>articleKey</code>, research status.</li>
+</ol>
+<h2 id="chrome-history-trust-over-ocr">Chrome history (trust over OCR)</h2>
+<ul>
+<li><code>2026-09-23T14:15:00Z</code> → <code>/companies?article=with</code></li>
+<li><code>2026-09-23T14:15:50Z</code> → <code>/share/article/08421b9c8af111dc214cffcdd564b8f6</code></li>
+<li>Do <strong>not</strong> use <code>/companies/article-with</code> (video OCR misread).</li>
+</ul>
+<h2 id="code-sot">Code SoT</h2>
+<ul>
+<li>Browse: <code>client/src/pages/CompanyDatabaseView.tsx</code> — filters, <code>Save filtered (up to 500)</code>, <code>Open on new page</code> → <code>publicShareArticleUrl</code></li>
+<li>Share: <code>client/src/App.tsx</code> <code>/share/article/:articleKey</code> · <code>BrainCampaignArticlePage</code></li>
+<li>Enrich: <code>client/src/components/article/ArticleEnrichmentToolbar.tsx</code> (<code>deep_research</code>)</li>
+<li>Article filter mirror: <code>server/services/copilotCompanies.ts</code> (<code>article=with|without</code>)</li>
+<li>Hub: <code>client/src/pages/OfferingCompanyFinderPage.tsx</code> · <code>client/src/lib/offeringCompanyFinderWays.ts</code> (<code>OFFERING_COMPANY_FINDER_PATH="/companies/start"</code>; card 1 <strong>&ldquo;Companies with articles&rdquo;</strong> → <code>/companies?article=with</code>) · <code>client/src/App.tsx:82</code> · <code>main</code> @ <code>7a7bdb440d</code> PR #116</li>
+</ul>
+<h2 id="anti-patterns_6">Anti-patterns</h2>
+<ul>
+<li>Skip Deep research on stale briefs.</li>
+<li>Invent <code>articleKey</code> / scores.</li>
+<li>Run Find contacts / Outreach / Apollo unless asked.</li>
+<li>Treat video OCR paths as canonical when history disagrees.</li>
+</ul>
+<h2 id="verify-status">Verify status</h2>
+<ul>
+<li><code>/companies/start</code> hub: <strong>VERIFIED</strong> <code>@lt_news_code</code> 2026-09-23 — <code>main</code> <code>7a7bdb440d</code> PR #116 · <code>App.tsx:82</code> · <code>offeringCompanyFinderWays.ts</code></li>
+<li><code>/companies?article=with</code>, Save filtered, Open on new page, Deep research toolbar: <strong>repo-backed</strong></li>
+</ul>
+<hr />
+<!-- source: media/02-full-company-universe/MANUAL.md -->
+
+<h1 id="process-step-full-company-universe">Process step — Full company universe</h1>
+<blockquote>
+<p>Bot-optimal. Verified against <code>offeringCompanyFinderWays.ts</code> + <code>companyBrowsePath()</code> 2026-09-23.
+Demo video: <code>demo.mp4</code> (teach-20260923T142501Z-8f8d55f2-…).</p>
+</blockquote>
+<h2 id="intent">Intent</h2>
+<p>Open the <strong>full</strong> company universe for the active venture so the set includes accounts <strong>with articles and without articles</strong>.</p>
+<h2 id="entry">Entry</h2>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub <code>/companies/start</code> → <strong>2 Full company universe</strong></td>
+<td><code>/companies</code></td>
+</tr>
+<tr>
+<td>Code</td>
+<td><code>id: browse-all</code> · <code>companyBrowsePath()</code> · empty <code>BrowsePathParams</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="article-presence">Article presence</h2>
+<table>
+<thead>
+<tr>
+<th>Hub card</th>
+<th>Route</th>
+<th>Article presence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 Companies with articles</td>
+<td><code>/companies?article=with</code></td>
+<td>With only</td>
+</tr>
+<tr>
+<td><strong>2 Full company universe</strong></td>
+<td><strong><code>/companies</code></strong></td>
+<td><strong>With + without</strong></td>
+</tr>
+<tr>
+<td>3 Companies without articles</td>
+<td><code>/companies?article=without</code></td>
+<td>Without only</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bot-steps">Bot steps</h2>
+<ol>
+<li>Navigate <code>/companies/start</code>.</li>
+<li>Click <strong>2 Full company universe</strong> → land on <code>/companies</code> with <strong>no</strong> <code>article</code> query.</li>
+<li>Apply other filters only if the task requires (watchlist, region, CG class). Keep <code>article</code> unset for true full universe.</li>
+<li>Optional: <strong>Save filtered (up to 500)</strong>.</li>
+<li>Expect some rows <strong>without</strong> share / Deep research — that is correct.</li>
+</ol>
+<h2 id="demo-chrome-history-this-recording">Demo chrome history (this recording)</h2>
+<ol>
+<li><code>/companies/start</code></li>
+<li><code>/companies</code> ← Full universe</li>
+<li>Later narrowed in-session to <code>?article=with</code> then <code>?region=Europe&amp;article=with</code> — <strong>do not</strong> treat those as the Full-universe definition; they are optional post-entry filters.</li>
+</ol>
+<h2 id="anti-patterns_7">Anti-patterns</h2>
+<ul>
+<li>Using <code>article=with</code> and calling it Full universe.</li>
+<li>Expecting every row to have an articleKey.</li>
+</ul>
+<h2 id="related">Related</h2>
+<ul>
+<li>Handbook §11 · §10 (with-articles → Deep research).</li>
+<li>Sibling process-step <code>01-refresh-stale-share-article</code> (card 1 path).</li>
+</ul>
+<hr />
+<!-- source: media/03-prepare-one-company/MANUAL.md -->
+
+<h1 id="process-step-prepare-one-company">Process step — Prepare one company</h1>
+<blockquote>
+<p>Bot-optimal. Verified <code>PrepareOneCompanyPage.tsx</code> + hub <code>prepare-one</code> → <code>/companies/prepare</code> 2026-09-23.
+Demo: <code>demo.mp4</code> (teach-20260923T142836Z-8086504e-…).</p>
+</blockquote>
+<h2 id="intent_1">Intent</h2>
+<p>Start full research, contacts, and article for <strong>one</strong> named company (ad-hoc), without browsing the universe.</p>
+<h2 id="entry_1">Entry</h2>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub <code>/companies/start</code> → <strong>4 Prepare one company</strong></td>
+<td><code>/companies/prepare</code></td>
+</tr>
+<tr>
+<td>Sidebar <strong>Prepare one</strong></td>
+<td>same</td>
+</tr>
+<tr>
+<td>Code</td>
+<td><code>PrepareOneCompanyPage</code> · <code>App.tsx</code> route <code>/companies/prepare</code> · hub id <code>prepare-one</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="inputs-vs-constants_3">Inputs vs constants</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Field</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INPUT</td>
+<td><code>{companyName}</code></td>
+<td>Embat</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td><code>{domain}</code></td>
+<td>embat.io</td>
+</tr>
+<tr>
+<td>SESSION</td>
+<td>active brain / Connect Group</td>
+<td>Connect Group EMS Intelligence - General</td>
+</tr>
+<tr>
+<td>CONSTANT</td>
+<td>CTA</td>
+<td><strong>Prepare outreach</strong></td>
+</tr>
+<tr>
+<td>API</td>
+<td>mutation</td>
+<td><code>leadtrigger.prepareAdhocCompany</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="bot-steps_1">Bot steps</h2>
+<ol>
+<li>Ensure active venture is set.</li>
+<li>Open <code>/companies/prepare</code> (hub card 4 or sidebar Prepare one).</li>
+<li>Fill <strong>Company name</strong> = <code>{companyName}</code>, <strong>Domain</strong> = <code>{domain}</code> (normalize: strip protocol/www/path; must contain <code>.</code>).</li>
+<li>Click <strong>Prepare outreach</strong>; wait until not pending.</li>
+<li>Read <strong>OUTREACH STARTED</strong> panel:
+   - <code>status === "created"</code> → added from Apollo
+   - else → found in database</li>
+<li>Optional follow-ups from panel: Open article (<code>/share/article/{articleKey}</code>), Ad-hoc watchlist, View company record (<code>/company/{companyId}</code>), Find companies like this (match seed).</li>
+<li>Report: companyName, domain, status, articleKey, campaignId, companyId.</li>
+</ol>
+<h2 id="decision-rules_6">Decision rules</h2>
+<ul>
+<li>Requires name trim ≥1 and domain ≥4 chars with <code>.</code>.</li>
+<li>Background work ~2–5 min — do not assume article content is final immediately; Deep research may still apply later (§10).</li>
+<li>Distinct from Full universe (§11) and with-articles browse (§10).</li>
+</ul>
+<h2 id="anti-patterns_8">Anti-patterns</h2>
+<ul>
+<li>Submitting without domain.</li>
+<li>Treating prepare as browse/filter.</li>
+<li>Skipping the OUTREACH STARTED result links when the task needs the article.</li>
+</ul>
+<h2 id="related_1">Related</h2>
+<ul>
+<li>Handbook §12 · hub cards 1–3 in §10–11.</li>
+</ul>
+</main>
 </body>
 </html>
