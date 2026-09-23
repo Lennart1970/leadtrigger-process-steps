@@ -35,10 +35,6 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   margin: 0;
   font-family: "IBM Plex Sans", "Segoe UI", "Helvetica Neue", sans-serif;
@@ -61,7 +57,7 @@ body {
 header.site {
   border-bottom: 1px solid var(--border);
   padding-bottom: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 }
 
 header.site .eyebrow {
@@ -86,28 +82,50 @@ header.site p {
   font-size: 0.95rem;
 }
 
-nav.toc-jump {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: color-mix(in srgb, var(--bg) 92%, transparent);
-  backdrop-filter: blur(8px);
+nav.site-nav {
+  margin: 0 0 1.75rem;
+  padding: 0.75rem 0;
   border-bottom: 1px solid var(--border);
-  margin: 0 -1.25rem 1.75rem;
-  padding: 0.65rem 1.25rem;
-  font-size: 0.85rem;
-  overflow-x: auto;
-  white-space: nowrap;
+  font-size: 0.9rem;
 }
 
-nav.toc-jump a {
-  color: var(--muted);
-  text-decoration: none;
-  margin-right: 1rem;
-}
-
-nav.toc-jump a:hover {
+nav.site-nav a {
   color: var(--link);
+  margin-right: 1rem;
+  text-underline-offset: 2px;
+}
+
+nav.site-nav a:hover {
+  color: var(--link-hover);
+}
+
+.hub-links {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 2rem;
+}
+
+.hub-links li {
+  margin: 0 0 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.hub-links a.primary {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--link);
+}
+
+.hub-links .blurb {
+  display: block;
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0.25rem 0 0.35rem;
+}
+
+.hub-links .manual {
+  font-size: 0.88rem;
 }
 
 .prose h1 {
@@ -118,22 +136,20 @@ nav.toc-jump a:hover {
   font-family: "IBM Plex Serif", Georgia, serif;
   font-size: 1.55rem;
   font-weight: 600;
-  margin: 2.75rem 0 1rem;
-  padding-top: 0.5rem;
+  margin: 2.25rem 0 1rem;
+  padding-top: 0.35rem;
   border-top: 1px solid var(--border);
-  scroll-margin-top: 3rem;
 }
 
 .prose h2:first-of-type {
   border-top: none;
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
 }
 
 .prose h3 {
   font-size: 1.15rem;
   font-weight: 600;
   margin: 1.75rem 0 0.65rem;
-  scroll-margin-top: 3rem;
 }
 
 .prose p,
