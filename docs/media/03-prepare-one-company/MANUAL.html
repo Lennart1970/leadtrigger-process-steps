@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Process step — Prepare one company</title>
+<meta name="description" content="Leadtrigger Offering Company Finder process steps — chatbot training corpus with demo media.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,650;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+<p class="eyebrow"><a href="../../index.html">← Back to process steps</a></p>
+<p class="eyebrow">Leadtrigger · leadtrigger-news</p>
+<h1>Process step — Prepare one company</h1>
+<p>Process step manual (source of truth for this step).</p>
+</header>
+
+<article class="prose">
+<h1 id="process-step-prepare-one-company">Process step — Prepare one company</h1>
+<blockquote>
+<p>Bot-optimal. Verified <code>PrepareOneCompanyPage.tsx</code> + hub <code>prepare-one</code> → <code>/companies/prepare</code> 2026-09-23.
+Demo: <code>demo.mp4</code> (teach-20260923T142836Z-8086504e-…).</p>
+</blockquote>
+<h2 id="intent">Intent</h2>
+<p>Start full research, contacts, and article for <strong>one</strong> named company (ad-hoc), without browsing the universe.</p>
+<h2 id="entry">Entry</h2>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub <code>/companies/start</code> → <strong>4 Prepare one company</strong></td>
+<td><code>/companies/prepare</code></td>
+</tr>
+<tr>
+<td>Sidebar <strong>Prepare one</strong></td>
+<td>same</td>
+</tr>
+<tr>
+<td>Code</td>
+<td><code>PrepareOneCompanyPage</code> · <code>App.tsx</code> route <code>/companies/prepare</code> · hub id <code>prepare-one</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="inputs-vs-constants">Inputs vs constants</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Field</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INPUT</td>
+<td><code>{companyName}</code></td>
+<td>Embat</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td><code>{domain}</code></td>
+<td>embat.io</td>
+</tr>
+<tr>
+<td>SESSION</td>
+<td>active brain / Connect Group</td>
+<td>Connect Group EMS Intelligence - General</td>
+</tr>
+<tr>
+<td>CONSTANT</td>
+<td>CTA</td>
+<td><strong>Prepare outreach</strong></td>
+</tr>
+<tr>
+<td>API</td>
+<td>mutation</td>
+<td><code>leadtrigger.prepareAdhocCompany</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="bot-steps">Bot steps</h2>
+<ol>
+<li>Ensure active venture is set.</li>
+<li>Open <code>/companies/prepare</code> (hub card 4 or sidebar Prepare one).</li>
+<li>Fill <strong>Company name</strong> = <code>{companyName}</code>, <strong>Domain</strong> = <code>{domain}</code> (normalize: strip protocol/www/path; must contain <code>.</code>).</li>
+<li>Click <strong>Prepare outreach</strong>; wait until not pending.</li>
+<li>Read <strong>OUTREACH STARTED</strong> panel:
+   - <code>status === "created"</code> → added from Apollo
+   - else → found in database</li>
+<li>Optional follow-ups from panel: Open article (<code>/share/article/{articleKey}</code>), Ad-hoc watchlist, View company record (<code>/company/{companyId}</code>), Find companies like this (match seed).</li>
+<li>Report: companyName, domain, status, articleKey, campaignId, companyId.</li>
+</ol>
+<h2 id="decision-rules">Decision rules</h2>
+<ul>
+<li>Requires name trim ≥1 and domain ≥4 chars with <code>.</code>.</li>
+<li>Background work ~2–5 min — do not assume article content is final immediately; Deep research may still apply later (§10).</li>
+<li>Distinct from Full universe (§11) and with-articles browse (§10).</li>
+</ul>
+<h2 id="anti-patterns">Anti-patterns</h2>
+<ul>
+<li>Submitting without domain.</li>
+<li>Treating prepare as browse/filter.</li>
+<li>Skipping the OUTREACH STARTED result links when the task needs the article.</li>
+</ul>
+<h2 id="related">Related</h2>
+<ul>
+<li>Handbook §12 · hub cards 1–3 in §10–11.</li>
+</ul>
+</article>
+<footer class="site">
+  <p>Static training site · <a href="https://lennart1970.github.io/leadtrigger-process-steps/">lennart1970.github.io/leadtrigger-process-steps</a> · GitHub Pages (<code>docs/</code>)</p>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Process step 01 — Refresh stale share article (Company finder → Deep research)</title>
+<meta name="description" content="Leadtrigger Offering Company Finder process steps — chatbot training corpus with demo media.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,650;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+<p class="eyebrow"><a href="../../index.html">← Back to process steps</a></p>
+<p class="eyebrow">Leadtrigger · leadtrigger-news</p>
+<h1>Process step 01 — Refresh stale share article (Company finder → Deep research)</h1>
+<p>Process step manual (source of truth for this step).</p>
+</header>
+
+<article class="prose">
+<h1 id="process-step-01-refresh-stale-share-article-company-finder-deep-research">Process step 01 — Refresh stale share article (Company finder → Deep research)</h1>
+<blockquote>
+<p><strong>Audience:</strong> Grok Bots (<code>lt_*</code>). Spec-like. Not a human tutorial.
+<strong>Demo:</strong> 2026-09-23 16:14–16:16 Europe/Amsterdam · teach session <code>teach-20260923T141440Z-3d20767a-6a76-491a-a590-ab88758060d2</code>
+<strong>Env:</strong> <code>https://leadtrigger-news-production.up.railway.app</code> · venture Connect Group EMS Intelligence
+<strong>Related skill:</strong> <a href="sand-workflow:refresh-share-article-via-deep-research">Refresh share article via Deep research</a>
+<strong>Parent handbook:</strong> <code>LEADTRIGGER_BOT_MANUAL.md</code> §10 (summary only). This folder is the <strong>source of truth</strong> for the step.</p>
+</blockquote>
+<h2 id="why">Why</h2>
+<p>Many <code>/share/article/{articleKey}</code> briefs are <strong>stale</strong>. After opening from Company finder, run <strong>Deep research</strong> before trusting fit/urgency/copy.</p>
+<h2 id="assets">Assets</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>demo.mp4</code></td>
+<td>Full screen recording — restored 2026-09-23 from teach-20260923T135442Z (~55s; ends on share article Deep research).</td>
+</tr>
+<tr>
+<td><code>assets/frame_20pct.png</code></td>
+<td>Still ~18s into demo (hub → loading)</td>
+</tr>
+<tr>
+<td><code>assets/frame_70pct.png</code></td>
+<td>Still ~63s (share article / PEOPLE)</td>
+</tr>
+<tr>
+<td><code>assets/after_deep_research.webp</code></td>
+<td>Post–Deep research click on Aceros Moldeados</td>
+</tr>
+</tbody>
+</table>
+<h2 id="canonical-paths">Canonical paths</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Route / control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub</td>
+<td><code>/companies/start</code> — Offering Company Finder</td>
+</tr>
+<tr>
+<td>With articles</td>
+<td><code>/companies?article=with</code> — Browse companies</td>
+</tr>
+<tr>
+<td>Share</td>
+<td><code>/share/article/{articleKey}</code> — <code>Open on new page</code></td>
+</tr>
+<tr>
+<td>Enrich</td>
+<td>Toolbar <strong>Deep research</strong> (<code>stage: deep_research</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="inputs-vs-constants">Inputs vs constants</h2>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Name</th>
+<th>Demo value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INPUT</td>
+<td><code>{watchlist}</code></td>
+<td>S8</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td><code>{company}</code></td>
+<td>Aceros Moldeados de Lacunza SA</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td><code>{articleKey}</code></td>
+<td><code>08421b9c8af111dc214cffcdd564b8f6</code></td>
+</tr>
+<tr>
+<td>SESSION</td>
+<td>venture / brain</td>
+<td>Connect Group EMS Intelligence</td>
+</tr>
+<tr>
+<td>CONST</td>
+<td>base URL</td>
+<td><code>https://leadtrigger-news-production.up.railway.app</code></td>
+</tr>
+<tr>
+<td>CONST</td>
+<td>article filter</td>
+<td><code>article=with</code></td>
+</tr>
+<tr>
+<td>CONST</td>
+<td>CG class</td>
+<td>All (<code>cgLeadClass</code> empty)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sequence">Sequence</h2>
+<ol>
+<li>Open <code>{base}/companies/start</code>.</li>
+<li>Click <strong>1 Companies with articles</strong> → <code>{base}/companies?article=with</code>.</li>
+<li>Set <strong>Watchlist</strong> = <code>{watchlist}</code> (dropdown from <code>campaignBrain.listBrainCampaigns</code> → <code>campaignId</code>).</li>
+<li>Leave <strong>CG class</strong> at All unless specified.</li>
+<li>Click <strong>Save filtered (up to 500)</strong>.</li>
+<li>On <code>{company}</code> row, click <strong>Open on new page</strong> → new tab <code>{base}/share/article/{articleKey}</code>.</li>
+<li>Click <strong>Deep research</strong>. Wait until toolbar idle / toast complete.</li>
+<li>Report: company, <code>articleKey</code>, research status.</li>
+</ol>
+<h2 id="chrome-history-trust-over-ocr">Chrome history (trust over OCR)</h2>
+<ul>
+<li><code>2026-09-23T14:15:00Z</code> → <code>/companies?article=with</code></li>
+<li><code>2026-09-23T14:15:50Z</code> → <code>/share/article/08421b9c8af111dc214cffcdd564b8f6</code></li>
+<li>Do <strong>not</strong> use <code>/companies/article-with</code> (video OCR misread).</li>
+</ul>
+<h2 id="code-sot">Code SoT</h2>
+<ul>
+<li>Browse: <code>client/src/pages/CompanyDatabaseView.tsx</code> — filters, <code>Save filtered (up to 500)</code>, <code>Open on new page</code> → <code>publicShareArticleUrl</code></li>
+<li>Share: <code>client/src/App.tsx</code> <code>/share/article/:articleKey</code> · <code>BrainCampaignArticlePage</code></li>
+<li>Enrich: <code>client/src/components/article/ArticleEnrichmentToolbar.tsx</code> (<code>deep_research</code>)</li>
+<li>Article filter mirror: <code>server/services/copilotCompanies.ts</code> (<code>article=with|without</code>)</li>
+<li>Hub: <code>client/src/pages/OfferingCompanyFinderPage.tsx</code> · <code>client/src/lib/offeringCompanyFinderWays.ts</code> (<code>OFFERING_COMPANY_FINDER_PATH="/companies/start"</code>; card 1 <strong>&ldquo;Companies with articles&rdquo;</strong> → <code>/companies?article=with</code>) · <code>client/src/App.tsx:82</code> · <code>main</code> @ <code>7a7bdb440d</code> PR #116</li>
+</ul>
+<h2 id="anti-patterns">Anti-patterns</h2>
+<ul>
+<li>Skip Deep research on stale briefs.</li>
+<li>Invent <code>articleKey</code> / scores.</li>
+<li>Run Find contacts / Outreach / Apollo unless asked.</li>
+<li>Treat video OCR paths as canonical when history disagrees.</li>
+</ul>
+<h2 id="verify-status">Verify status</h2>
+<ul>
+<li><code>/companies/start</code> hub: <strong>VERIFIED</strong> <code>@lt_news_code</code> 2026-09-23 — <code>main</code> <code>7a7bdb440d</code> PR #116 · <code>App.tsx:82</code> · <code>offeringCompanyFinderWays.ts</code></li>
+<li><code>/companies?article=with</code>, Save filtered, Open on new page, Deep research toolbar: <strong>repo-backed</strong></li>
+</ul>
+</article>
+<footer class="site">
+  <p>Static training site · <a href="https://lennart1970.github.io/leadtrigger-process-steps/">lennart1970.github.io/leadtrigger-process-steps</a> · GitHub Pages (<code>docs/</code>)</p>
+</footer>
+</div>
+</body>
+</html>
