@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Process step — Full company universe</title>
+<meta name="description" content="Leadtrigger Offering Company Finder process steps — chatbot training corpus with demo media.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,650;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+<p class="eyebrow"><a href="../../index.html">← Back to process steps</a></p>
+<p class="eyebrow">Leadtrigger · leadtrigger-news</p>
+<h1>Process step — Full company universe</h1>
+<p>Process step manual (source of truth for this step).</p>
+</header>
+
+<article class="prose">
+<h1 id="process-step-full-company-universe">Process step — Full company universe</h1>
+<blockquote>
+<p>Bot-optimal. Verified against <code>offeringCompanyFinderWays.ts</code> + <code>companyBrowsePath()</code> 2026-09-23.
+Demo video: <code>demo.mp4</code> (teach-20260923T142501Z-8f8d55f2-…).</p>
+</blockquote>
+<h2 id="intent">Intent</h2>
+<p>Open the <strong>full</strong> company universe for the active venture so the set includes accounts <strong>with articles and without articles</strong>.</p>
+<h2 id="entry">Entry</h2>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub <code>/companies/start</code> → <strong>2 Full company universe</strong></td>
+<td><code>/companies</code></td>
+</tr>
+<tr>
+<td>Code</td>
+<td><code>id: browse-all</code> · <code>companyBrowsePath()</code> · empty <code>BrowsePathParams</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="article-presence">Article presence</h2>
+<table>
+<thead>
+<tr>
+<th>Hub card</th>
+<th>Route</th>
+<th>Article presence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 Companies with articles</td>
+<td><code>/companies?article=with</code></td>
+<td>With only</td>
+</tr>
+<tr>
+<td><strong>2 Full company universe</strong></td>
+<td><strong><code>/companies</code></strong></td>
+<td><strong>With + without</strong></td>
+</tr>
+<tr>
+<td>3 Companies without articles</td>
+<td><code>/companies?article=without</code></td>
+<td>Without only</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bot-steps">Bot steps</h2>
+<ol>
+<li>Navigate <code>/companies/start</code>.</li>
+<li>Click <strong>2 Full company universe</strong> → land on <code>/companies</code> with <strong>no</strong> <code>article</code> query.</li>
+<li>Apply other filters only if the task requires (watchlist, region, CG class). Keep <code>article</code> unset for true full universe.</li>
+<li>Optional: <strong>Save filtered (up to 500)</strong>.</li>
+<li>Expect some rows <strong>without</strong> share / Deep research — that is correct.</li>
+</ol>
+<h2 id="demo-chrome-history-this-recording">Demo chrome history (this recording)</h2>
+<ol>
+<li><code>/companies/start</code></li>
+<li><code>/companies</code> ← Full universe</li>
+<li>Later narrowed in-session to <code>?article=with</code> then <code>?region=Europe&amp;article=with</code> — <strong>do not</strong> treat those as the Full-universe definition; they are optional post-entry filters.</li>
+</ol>
+<h2 id="anti-patterns">Anti-patterns</h2>
+<ul>
+<li>Using <code>article=with</code> and calling it Full universe.</li>
+<li>Expecting every row to have an articleKey.</li>
+</ul>
+<h2 id="related">Related</h2>
+<ul>
+<li>Handbook §11 · §10 (with-articles → Deep research).</li>
+<li>Sibling process-step <code>01-refresh-stale-share-article</code> (card 1 path).</li>
+</ul>
+</article>
+<footer class="site">
+  <p>Static training site · <a href="https://lennart1970.github.io/leadtrigger-process-steps/">lennart1970.github.io/leadtrigger-process-steps</a> · GitHub Pages (<code>docs/</code>)</p>
+</footer>
+</div>
+</body>
+</html>
