@@ -1,31 +1,29 @@
 # leadtrigger-process-steps
 
-Leadtrigger Offering Company Finder process steps — chatbot / RAG training corpus with demo media.
+Leadtrigger Offering Company Finder process steps — flat chatbot / RAG training corpus.
 
 **Live site:** https://lennart1970.github.io/leadtrigger-process-steps/
 
-## Crawlable pages (flat link graph)
+## What this is
 
-| URL | Content |
-|-----|---------|
-| [/](https://lennart1970.github.io/leadtrigger-process-steps/) | Hub — intro + links to each step |
-| [/01-refresh-stale-share-article.html](https://lennart1970.github.io/leadtrigger-process-steps/01-refresh-stale-share-article.html) | Process step 01 + media |
-| [/02-full-company-universe.html](https://lennart1970.github.io/leadtrigger-process-steps/02-full-company-universe.html) | Process step 02 + media |
-| [/03-prepare-one-company.html](https://lennart1970.github.io/leadtrigger-process-steps/03-prepare-one-company.html) | Process step 03 + media |
-| [/appendix.html](https://lennart1970.github.io/leadtrigger-process-steps/appendix.html) | Handbook UI sequences §10–12 |
-| [/media/…/MANUAL.html](https://lennart1970.github.io/leadtrigger-process-steps/media/01-refresh-stale-share-article/MANUAL.html) | Per-step MANUAL (SoT) |
+One long flat page (`docs/index.html`) that is the training handbook as-is:
 
-Discovery uses **real HTML page links** (not `#` in-page jumps). Also: `docs/sitemap.xml`, `docs/robots.txt`.
+1. `INDEX.md` (process steps 01/02/03 + media embeds)
+2. `appendix-handbook-ui-sequences.md` (handbook §10–12)
+3. Each `media/*/MANUAL.md` inlined
+
+No hub nav chrome, no sticky TOC, no multi-page site chrome — readable body text for crawler / RAG extraction. Stills and videos stay inline where the markdown embeds them.
+
+Standalone MANUAL pages also exist under `docs/media/*/MANUAL.html` (same content, no nav).
 
 ## GitHub Pages
 
-- Source: `docs/` on `main`
-- Enable: **Settings → Pages → Deploy from a branch → `main` / `/docs`**
+Deploy from branch `main` / folder `/docs`.
 
-## Rebuild from pack
+## Rebuild
 
 ```bash
-# unpack pack to /tmp/leadtrigger-pack (or adjust PACK in build_site.py)
+# pack unpacked at /tmp/leadtrigger-pack
 python3 build_site.py
 ```
 

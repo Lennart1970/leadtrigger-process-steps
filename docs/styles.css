@@ -1,291 +1,127 @@
 :root {
-  --bg: #0f1419;
-  --surface: #1a222c;
-  --text: #e7ecf1;
-  --muted: #9aa7b5;
-  --link: #6db3f2;
-  --link-hover: #9cccf7;
-  --border: #2a3542;
-  --code-bg: #121820;
-  --accent: #3d8fd1;
-  --blockquote: #8b9aab;
-  --table-stripe: #151c24;
-  --max: 52rem;
+  --bg: #111418;
+  --text: #e8eaed;
+  --muted: #9aa0a6;
+  --link: #8ab4f8;
+  --border: #3c4043;
+  --code-bg: #1e2227;
+  --surface: #1a1e23;
+  --max: 48rem;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #f7f5f1;
-    --surface: #ffffff;
-    --text: #1a1f26;
-    --muted: #5a6570;
-    --link: #0b6bcb;
-    --link-hover: #084a8c;
-    --border: #d5dbe3;
-    --code-bg: #eef1f5;
-    --accent: #0b6bcb;
-    --blockquote: #5a6570;
-    --table-stripe: #f0ede8;
+    --bg: #fafafa;
+    --text: #202124;
+    --muted: #5f6368;
+    --link: #1a73e8;
+    --border: #dadce0;
+    --code-bg: #f1f3f4;
+    --surface: #fff;
   }
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: "IBM Plex Sans", "Segoe UI", "Helvetica Neue", sans-serif;
+  font-family: Georgia, "Times New Roman", "Liberation Serif", serif;
   font-size: 1.05rem;
   line-height: 1.65;
   color: var(--text);
-  background:
-    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(61, 143, 209, 0.12), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(30, 80, 120, 0.1), transparent),
-    var(--bg);
-  min-height: 100vh;
+  background: var(--bg);
 }
 
-.wrap {
+main {
   max-width: var(--max);
   margin: 0 auto;
-  padding: 1.5rem 1.25rem 4rem;
+  padding: 1.5rem 1.25rem 3.5rem;
 }
 
-header.site {
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 1rem;
-  margin-bottom: 1.75rem;
+h1, h2, h3, h4 {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.3;
+  font-weight: 650;
 }
 
-header.site .eyebrow {
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 0.35rem;
-}
+h1 { font-size: 1.75rem; margin: 0 0 1rem; }
+h2 { font-size: 1.4rem; margin: 2.25rem 0 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+h3 { font-size: 1.15rem; margin: 1.5rem 0 0.5rem; }
+h4 { font-size: 1.05rem; margin: 1.25rem 0 0.4rem; }
 
-header.site h1 {
-  font-family: "IBM Plex Serif", Georgia, "Times New Roman", serif;
-  font-size: clamp(1.6rem, 4vw, 2.15rem);
-  font-weight: 600;
-  line-height: 1.25;
-  margin: 0 0 0.5rem;
-}
+p, ul, ol { margin: 0.7rem 0; }
+ul, ol { padding-left: 1.35rem; }
+li { margin: 0.25rem 0; }
 
-header.site p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-}
+a { color: var(--link); }
 
-nav.site-nav {
-  margin: 0 0 1.75rem;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.9rem;
-}
-
-nav.site-nav a {
-  color: var(--link);
-  margin-right: 1rem;
-  text-underline-offset: 2px;
-}
-
-nav.site-nav a:hover {
-  color: var(--link-hover);
-}
-
-.hub-links {
-  list-style: none;
-  padding: 0;
-  margin: 1.25rem 0 2rem;
-}
-
-.hub-links li {
-  margin: 0 0 1rem;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.hub-links a.primary {
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--link);
-}
-
-.hub-links .blurb {
-  display: block;
-  color: var(--muted);
-  font-size: 0.95rem;
-  margin: 0.25rem 0 0.35rem;
-}
-
-.hub-links .manual {
-  font-size: 0.88rem;
-}
-
-.prose h1 {
-  display: none; /* page title is in header */
-}
-
-.prose h2 {
-  font-family: "IBM Plex Serif", Georgia, serif;
-  font-size: 1.55rem;
-  font-weight: 600;
-  margin: 2.25rem 0 1rem;
-  padding-top: 0.35rem;
-  border-top: 1px solid var(--border);
-}
-
-.prose h2:first-of-type {
-  border-top: none;
-  margin-top: 0.5rem;
-}
-
-.prose h3 {
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin: 1.75rem 0 0.65rem;
-}
-
-.prose p,
-.prose ul,
-.prose ol {
-  margin: 0.75rem 0;
-}
-
-.prose ul,
-.prose ol {
-  padding-left: 1.35rem;
-}
-
-.prose li {
-  margin: 0.3rem 0;
-}
-
-.prose a {
-  color: var(--link);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-}
-
-.prose a:hover {
-  color: var(--link-hover);
-}
-
-.prose blockquote {
+blockquote {
   margin: 1rem 0;
-  padding: 0.65rem 1rem;
-  border-left: 3px solid var(--accent);
-  background: var(--surface);
-  color: var(--blockquote);
+  padding: 0.5rem 0.9rem;
+  border-left: 3px solid var(--border);
+  color: var(--muted);
 }
 
-.prose blockquote p {
-  margin: 0.35rem 0;
-}
-
-.prose code {
-  font-family: "IBM Plex Mono", ui-monospace, "Cascadia Code", monospace;
+code {
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Menlo, monospace;
   font-size: 0.88em;
   background: var(--code-bg);
-  padding: 0.12em 0.35em;
+  padding: 0.1em 0.3em;
   border-radius: 3px;
-  border: 1px solid var(--border);
 }
 
-.prose pre {
+pre {
   overflow-x: auto;
   background: var(--code-bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.9rem 1rem;
+  padding: 0.75rem 1rem;
   font-size: 0.88rem;
 }
 
-.prose pre code {
-  border: none;
-  padding: 0;
-  background: none;
-}
+pre code { background: none; padding: 0; }
 
-.prose table {
+table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.92rem;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   margin: 1rem 0;
   display: block;
   overflow-x: auto;
 }
 
-.prose th,
-.prose td {
+th, td {
   border: 1px solid var(--border);
-  padding: 0.45rem 0.65rem;
+  padding: 0.4rem 0.6rem;
   text-align: left;
   vertical-align: top;
 }
 
-.prose th {
-  background: var(--surface);
-  font-weight: 600;
-}
+th { background: var(--surface); }
 
-.prose tr:nth-child(even) td {
-  background: var(--table-stripe);
-}
-
-.prose hr {
+hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: 2rem 0;
 }
 
-.prose img {
+img {
   max-width: 100%;
   height: auto;
   display: block;
   margin: 1rem 0;
   border: 1px solid var(--border);
-  border-radius: 4px;
 }
 
-.prose video {
+video {
   display: block;
   width: 100%;
   max-width: 100%;
   margin: 1rem 0;
   background: #000;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-}
-
-.prose strong {
-  font-weight: 650;
-}
-
-footer.site {
-  margin-top: 3rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 0.85rem;
 }
 
 @media (max-width: 640px) {
-  body {
-    font-size: 1rem;
-  }
-
-  .wrap {
-    padding: 1rem 0.9rem 3rem;
-  }
-
-  .prose table {
-    font-size: 0.82rem;
-  }
+  body { font-size: 1rem; }
+  main { padding: 1rem 0.85rem 2.5rem; }
 }
