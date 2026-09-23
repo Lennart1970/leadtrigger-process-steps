@@ -1,27 +1,26 @@
 # leadtrigger-process-steps
 
-Leadtrigger Offering Company Finder process steps — chatbot training corpus with demo media.
+Leadtrigger Offering Company Finder process steps — chatbot / RAG training corpus with demo media.
 
 **Live site:** https://lennart1970.github.io/leadtrigger-process-steps/
 
-## What this is
+## Crawlable pages (flat link graph)
 
-A static GitHub Pages site (`/docs`) that publishes the Offering Company Finder process-step pack as one long training page:
+| URL | Content |
+|-----|---------|
+| [/](https://lennart1970.github.io/leadtrigger-process-steps/) | Hub — intro + links to each step |
+| [/01-refresh-stale-share-article.html](https://lennart1970.github.io/leadtrigger-process-steps/01-refresh-stale-share-article.html) | Process step 01 + media |
+| [/02-full-company-universe.html](https://lennart1970.github.io/leadtrigger-process-steps/02-full-company-universe.html) | Process step 02 + media |
+| [/03-prepare-one-company.html](https://lennart1970.github.io/leadtrigger-process-steps/03-prepare-one-company.html) | Process step 03 + media |
+| [/appendix.html](https://lennart1970.github.io/leadtrigger-process-steps/appendix.html) | Handbook UI sequences §10–12 |
+| [/media/…/MANUAL.html](https://lennart1970.github.io/leadtrigger-process-steps/media/01-refresh-stale-share-article/MANUAL.html) | Per-step MANUAL (SoT) |
 
-1. **01 — Refresh stale share article** (with video + stills)
-2. **02 — Full company universe** (with video + stills)
-3. **03 — Prepare one company** (with video + stills)
-4. **Appendix** — Handbook UI sequences §10–12
-
-Audience is chatbot / Grok Bot training: dense routes, decision rules, and media — not marketing.
+Discovery uses **real HTML page links** (not `#` in-page jumps). Also: `docs/sitemap.xml`, `docs/robots.txt`.
 
 ## GitHub Pages
 
 - Source: `docs/` on `main`
-- Homepage: `docs/index.html`
-- Media: `docs/media/**` (relative paths for `<img>` / `<video>`)
-
-Enable Pages: **Settings → Pages → Deploy from a branch → `main` / `/docs`**.
+- Enable: **Settings → Pages → Deploy from a branch → `main` / `/docs`**
 
 ## Rebuild from pack
 

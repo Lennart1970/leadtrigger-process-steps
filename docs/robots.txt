@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lennart1970.github.io/leadtrigger-process-steps/sitemap.xml
